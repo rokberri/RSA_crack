@@ -1,21 +1,24 @@
-import time
+from . import decor
 import random
 
-def ferma_nums(n:int)->list[int]:
-    res = list()
-    for i in range(n):
-        tmp = 2**i
-        res.append((2**tmp)+1)
-    return res
 
-def get_runtime(func):
-    def wrapper(arg):
-        print("Диапазон поиска чисел: от 1 до", arg)
-        start_time = time.monotonic()
-        print(func(arg))
-        print('Время выполнения: ', time.monotonic() - start_time)
+def euler(n):
+    """
+    Функция Эйлера
+    """
+    r = n
+    i = 2
+    while i*i <= n:
+        if n % i == 0:
+            while n % i == 0:
+                n //= i
+            r -= r//i
+        else:
+            i += 1
+    if n > 1:
+        r -= r//n
+    return r
 
-    return wrapper
 
 def sieve_eratosthenes(n):
     """
@@ -65,7 +68,7 @@ def bezout(a, b):
 
 def get_prime_num():
     """
-    Функция для получения типа рандомных простых чисел
+    Функция для получения рандомных ( нет:) ) простых чисел
     """
     primary_numbers = sieve_eratosthenes(1024)
     length = len(primary_numbers)
